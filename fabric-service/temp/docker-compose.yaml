@@ -9,7 +9,6 @@ services:
 
   orderer:
     image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_ORDERER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_ORDERER_FIXTURE_TAG}
-    #在docker中的环境变量
     environment:
       - ORDERER_GENERAL_LOGLEVEL=info
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
@@ -30,22 +29,21 @@ services:
     command: orderer
     ports:
       - 7050:7050
-    #挂载数据卷
     volumes:
       - ./artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/ordererOrganizations/Provence.com/orderers/orderer.Provence.com/msp:/etc/hyperledger/msp/orderer
-      - ./crypto-config/ordererOrganizations/Provence.com/orderers/orderer.Provence.com/tls:/etc/hyperledger/tls/orderer
-      #- ./crypto-config/peerOrganizations/yjh.provence.com/tlsca:/etc/hyperledger/tlsca
+      - ./crypto-config/ordererOrganizations/citizens.com/orderers/orderer.citizens.com/msp:/etc/hyperledger/msp/orderer
+      - ./crypto-config/ordererOrganizations/citizens.com/orderers/orderer.citizens.com/tls:/etc/hyperledger/tls/orderer
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/tlsca
     networks:
       default:
         aliases:
-          - orderer.Provence.com
+          - orderer.citizens.com
 
-  YJHpeer1:
+  FBIpeer1:
     image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
     environment:
       - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer0.yjh.provence.com
+      - CORE_PEER_ID=peer0.fbi.citizens.com
       - CORE_LOGGING_PEER=info
       # - CORE_LOGGING_GRPC=debug
       # - CORE_LOGGING_GOSSIP=debug
@@ -56,13 +54,13 @@ services:
       - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
       - CORE_CHAINCODE_EXECUTETIMEOUT=120s
       - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=YJHMSP
+      - CORE_PEER_LOCALMSPID=FBIMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=127.0.0.1:7051
       - CORE_PEER_ADDRESS=peer0.fbi.citizens.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.yjh.provnece.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.fbi.citizens.com:7051
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/tls/peer/server.key
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/tls/peer/server.crt
@@ -86,21 +84,21 @@ services:
       - "7052"
     volumes:
       - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/yjh.provence.com/tlsca:/etc/hyperledger/orgs/yjh.provence.com/tlsca
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer0.fbi.citizens.com/msp:/etc/hyperledger/msp/peer
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer0.fbi.citizens.com/tls:/etc/hyperledger/tls/peer
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/orgs/fbi.citizens.com/tlsca
     networks:
       default:
         aliases:
-          - peer0.yjh.provence.com
+          - peer0.fbi.citizens.com
     depends_on:
       - orderer
 
-  YJHpeer2:
+  FBIpeer2:
     image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
     environment:
       - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer1.yjh.provence.com
+      - CORE_PEER_ID=peer1.fbi.citizens.com
       - CORE_LOGGING_PEER=info
       # - CORE_LOGGING_GRPC=debug
       # - CORE_LOGGING_GOSSIP=debug
@@ -111,13 +109,13 @@ services:
       - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
       - CORE_CHAINCODE_EXECUTETIMEOUT=120s
       - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=YJHMSP
+      - CORE_PEER_LOCALMSPID=FBIMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7151
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7152
-      - CORE_PEER_ADDRESS=peer1.yjh.provence.com:7151
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.yjh.provence.com:7151
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.yjh.provence.com:7051
+      - CORE_PEER_ADDRESS=peer1.fbi.citizens.com:7151
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.fbi.citizens.com:7151
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fbi.citizens.com:7051
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/tls/peer/server.key
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/tls/peer/server.crt
@@ -141,99 +139,28 @@ services:
       - "7152"
     volumes:
       - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/yjh.provence.com/peers/peer1.yjh.provence.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/yjh.provence.com/peers/peer1.yjh.provence.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/yjh.provence.com/tlsca:/etc/hyperledger/orgs/yjh.provence.com/tlsca
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer1.fbi.citizens.com/msp:/etc/hyperledger/msp/peer
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer1.fbi.citizens.com/tls:/etc/hyperledger/tls/peer
+      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/orgs/fbi.citizens.com/tlsca
     networks:
       default:
         aliases:
-          - peer1.yjh.provence.com
+          - peer1.fbi.citizens.com
     depends_on:
       - orderer
+#  # builder is only here to create a dependency on the image (not used as part of compose)
+#   builder:
+#     image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_BUILDER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BUILDER_FIXTURE_TAG}
+#     command: tail -F anything
+#     logging:
+#       driver: none
 
-  HYpeer1:
-    image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
-    environment:
-      - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer0.hy.provence.com
-      - CORE_LOGGING_PEER=info
-      - CORE_CHAINCODE_LOGGING_SHIM=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=debug
-      - CORE_CHAINCODE_BUILDER=${FABRIC_DOCKER_REGISTRY}${FABRIC_BUILDER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BUILDER_FIXTURE_TAG}
-      - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
-      - CORE_CHAINCODE_EXECUTETIMEOUT=120s
-      - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=HYMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7351
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7352
-      - CORE_PEER_ADDRESS=peer0.hy.provence.com:7351
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.hy.provence.com:7351
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.hy.provence.com:7351
-      - CORE_PEER_TLS_ENABLED=true
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    ports:
-      - "7351:7351"
-    expose:
-      - "7351"
-      - "7352"
-    volumes:
-      - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/hy.provence.com/peers/peer1.hy.provence.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/hy.provence.com/peers/peer1.hy.provence.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/hy.provence.com/tlsca:/etc/hyperledger/orgs/hy.provence.com/tlsca
-    networks:
-      default:
-        aliases:
-          - peer0.hy.provence.com
-    depends_on:
-      - orderer
+#  # golangruntime is only here to create a dependency on the image (not used as part of compose)
+#   golangruntime:
+#     image: ${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
+#     command: tail -F anything
+#     logging:
+#       driver: none
 
 networks:
     default:
-
-
-HYpeer2:
-    image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
-    environment:
-      - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer1.hy.provence.com
-      - CORE_LOGGING_PEER=info
-      - CORE_CHAINCODE_LOGGING_SHIM=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=debug
-      - CORE_CHAINCODE_BUILDER=${FABRIC_DOCKER_REGISTRY}${FABRIC_BUILDER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BUILDER_FIXTURE_TAG}
-      - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
-      - CORE_CHAINCODE_EXECUTETIMEOUT=120s
-      - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=HYMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7451
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7452
-      - CORE_PEER_ADDRESS=peer1.hy.provence.com:7451
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.hy.provence.com:7451
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.hy.provence.com:7351
-      - CORE_PEER_TLS_ENABLED=true
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    ports:
-      - "7451:7451"
-    expose:
-      - "7451"
-      - "7452"
-    volumes:
-      - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/hy.provence.com/peers/peer1.hy.provence.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/hy.provence.com/peers/peer1.hy.provence.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/hy.provence.com/tlsca:/etc/hyperledger/orgs/hy.provence.com/tlsca
-    networks:
-      default:
-        aliases:
-          - peer1.hy.provence.com
-    depends_on:
-      - orderer
-
-networks:
-    default:
-
-

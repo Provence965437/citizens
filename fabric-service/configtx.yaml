@@ -26,7 +26,7 @@ Organizations:
 
         # MSPDir is the filesystem path which contains the MSP configuration
 
-        MSPDir: crypto-config/ordererOrganizations/Provence.com/msp
+        MSPDir: crypto-config/ordererOrganizations/provence.com/msp
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
         #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
@@ -41,8 +41,8 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-        OrdererEndpoints:
-            - orderer.provence.com:7050
+       # OrdererEndpoints:
+        #    - orderer.provence.com:7050
 
     - &Org1
         # DefaultOrg defines the organization which is used in the sampleconfig
@@ -102,7 +102,7 @@ Organizations:
                 Rule: "OR('HYMSP.peer')"
         AnchorPeers:
              - Host: peer0.hy.provence.com
-               Port: 7052
+               Port: 7051
 
 ################################################################################
 #
@@ -215,14 +215,14 @@ Orderer: &OrdererDefaults
     # as TLS validation.  The preferred way to specify orderer addresses is now
     # to include the OrdererEndpoints item in your org definition
     Addresses:
-        - Provence.com:7050
+        - provence.com:7050
 
     EtcdRaft:
         Consenters:
         - Host: provence.com
           Port: 7050
-          ClientTLSCert: ./crypto-config/ordererOrganizations/Provence.com/orderers/orderer.Provence.com/tls/server.crt
-          ServerTLSCert: ./crypto-config/ordererOrganizations/Provence.com/orderers/orderer.Provence.com/tls/server.crt
+          ClientTLSCert: ./crypto-config/ordererOrganizations/provence.com/orderers/orderer.provence.com/tls/server.crt
+          ServerTLSCert: ./crypto-config/ordererOrganizations/provence.com/orderers/orderer.provence.com/tls/server.crt
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -322,6 +322,11 @@ Profiles:
                 - *Org2
             Capabilities:
                 <<: *ApplicationCapabilities
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *Org1
+                    - *Org2
     ProvenceChannel:
         <<: *ChannelDefaults
         Consortium: SampleConsortium

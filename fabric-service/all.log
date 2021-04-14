@@ -7,10 +7,11 @@ Creating provence_orderer_1 ...
 Creating provence_HYpeer2_1  ... 
 Creating provence_HYpeer1_1  ... 
 Creating provence_YJHpeer1_1 ... 
-[1A[2KCreating provence_YJHpeer1_1 ... [32mdone[0m[1B[3A[2KCreating provence_HYpeer2_1  ... [32mdone[0m[3B[4A[2KCreating provence_YJHpeer2_1 ... [32mdone[0m[4B[2A[2KCreating provence_HYpeer1_1  ... [32mdone[0m[2BAttaching to provence_orderer_1, provence_YJHpeer1_1, provence_HYpeer2_1, provence_YJHpeer2_1, provence_HYpeer1_1
-[36morderer_1   |[0m [33m2021-04-09 09:00:12.240 UTC [localconfig] completeInitialization -> WARN 001[0m General.GenesisFile should be replaced by General.BootstrapFile
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.240 UTC [localconfig] completeInitialization -> INFO 002[0m Kafka.Version unset, setting to 0.10.2.0
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.240 UTC [orderer.common.server] prettyPrintStruct -> INFO 003[0m Orderer config values:
+[4A[2KCreating provence_YJHpeer2_1 ... [32mdone[0m[4B[3A[2KCreating provence_HYpeer2_1  ... [32mdone[0m[3B[1A[2KCreating provence_YJHpeer1_1 ... [32mdone[0m[1B[2A[2KCreating provence_HYpeer1_1  ... [32mdone[0m[2BCreating cli                 ... 
+[1A[2KCreating cli                 ... [32mdone[0m[1BAttaching to provence_orderer_1, provence_YJHpeer2_1, provence_HYpeer2_1, provence_YJHpeer1_1, provence_HYpeer1_1, cli
+[36morderer_1   |[0m [33m2021-04-13 13:27:56.498 UTC [localconfig] completeInitialization -> WARN 001[0m General.GenesisFile should be replaced by General.BootstrapFile
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.498 UTC [localconfig] completeInitialization -> INFO 002[0m Kafka.Version unset, setting to 0.10.2.0
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.510 UTC [orderer.common.server] prettyPrintStruct -> INFO 003[0m Orderer config values:
 [36morderer_1   |[0m 	General.ListenAddress = "0.0.0.0"
 [36morderer_1   |[0m 	General.ListenPort = 7050
 [36morderer_1   |[0m 	General.TLS.Enabled = true
@@ -103,84 +104,84 @@ Creating provence_YJHpeer1_1 ...
 [36morderer_1   |[0m 	Metrics.Statsd.Prefix = ""
 [36morderer_1   |[0m 	ChannelParticipation.Enabled = false
 [36morderer_1   |[0m 	ChannelParticipation.RemoveStorage = false
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.273 UTC [orderer.common.server] initializeServerConfig -> INFO 004[0m Starting orderer with TLS enabled
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.337 UTC [blkstorage] NewProvider -> INFO 005[0m Creating new file ledger directory at /var/hyperledger/production/orderer/chains
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.345 UTC [orderer.common.server] Main -> INFO 006[0m Bootstrapping the system channel
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.348 UTC [blkstorage] newBlockfileMgr -> INFO 007[0m Getting block information from block storage
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.386 UTC [orderer.common.server] selectClusterBootBlock -> INFO 008[0m Cluster boot block is bootstrap (genesis) block; Blocks Header.Number system-channel=0, bootstrap=0
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.392 UTC [orderer.common.server] Main -> INFO 009[0m Starting with system channel: provence, consensus type: etcdraft
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.392 UTC [orderer.common.server] Main -> INFO 00a[0m Setting up cluster
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.392 UTC [orderer.common.server] reuseListener -> INFO 00b[0m Cluster listener is not configured, defaulting to use the general listener on port 7050
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.410 UTC [orderer.common.cluster] loadVerifier -> INFO 00c[0m Loaded verifier for channel provence from config block at index 0
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.411 UTC [certmonitor] trackCertExpiration -> INFO 00d[0m The enrollment certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.411 UTC [certmonitor] trackCertExpiration -> INFO 00e[0m The server TLS certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.428 UTC [orderer.consensus.etcdraft] HandleChain -> INFO 00f[0m EvictionSuspicion not set, defaulting to 10m0s
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.429 UTC [orderer.consensus.etcdraft] createOrReadWAL -> INFO 010[0m No WAL data found, creating new WAL at path '/var/hyperledger/production/orderer/etcdraft/wal/provence' channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.450 UTC [orderer.commmon.multichannel] Initialize -> INFO 011[0m Starting system channel 'provence' with genesis block hash c5b92a52e6d33691cfd7cc3da65654694d79bd282303299f896d94c9aaaad2cc and orderer type etcdraft
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.consensus.etcdraft] Start -> INFO 012[0m Starting Raft node channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.common.cluster] Configure -> INFO 013[0m Entering, channel: provence, nodes: []
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.common.cluster] Configure -> INFO 014[0m Exiting
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.consensus.etcdraft] start -> INFO 015[0m Starting raft node as part of a new channel channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.consensus.etcdraft] becomeFollower -> INFO 016[0m 1 became follower at term 0 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.consensus.etcdraft] newRaft -> INFO 017[0m newRaft 1 [peers: [], term: 0, commit: 0, applied: 0, lastindex: 0, lastterm: 0] channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.consensus.etcdraft] becomeFollower -> INFO 018[0m 1 became follower at term 1 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.451 UTC [orderer.common.server] Main -> INFO 019[0m Starting orderer:
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.536 UTC [orderer.common.server] initializeServerConfig -> INFO 004[0m Starting orderer with TLS enabled
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.590 UTC [blkstorage] NewProvider -> INFO 005[0m Creating new file ledger directory at /var/hyperledger/production/orderer/chains
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.601 UTC [orderer.common.server] Main -> INFO 006[0m Bootstrapping the system channel
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.602 UTC [blkstorage] newBlockfileMgr -> INFO 007[0m Getting block information from block storage
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.649 UTC [orderer.common.server] selectClusterBootBlock -> INFO 008[0m Cluster boot block is bootstrap (genesis) block; Blocks Header.Number system-channel=0, bootstrap=0
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.654 UTC [orderer.common.server] Main -> INFO 009[0m Starting with system channel: provence, consensus type: etcdraft
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.654 UTC [orderer.common.server] Main -> INFO 00a[0m Setting up cluster
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.654 UTC [orderer.common.server] reuseListener -> INFO 00b[0m Cluster listener is not configured, defaulting to use the general listener on port 7050
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.660 UTC [orderer.common.cluster] loadVerifier -> INFO 00c[0m Loaded verifier for channel provence from config block at index 0
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.660 UTC [certmonitor] trackCertExpiration -> INFO 00d[0m The enrollment certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.660 UTC [certmonitor] trackCertExpiration -> INFO 00e[0m The server TLS certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.706 UTC [orderer.consensus.etcdraft] HandleChain -> INFO 00f[0m EvictionSuspicion not set, defaulting to 10m0s
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.706 UTC [orderer.consensus.etcdraft] createOrReadWAL -> INFO 010[0m No WAL data found, creating new WAL at path '/var/hyperledger/production/orderer/etcdraft/wal/provence' channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.commmon.multichannel] Initialize -> INFO 011[0m Starting system channel 'provence' with genesis block hash 72612880262f2b45d3f35f883bc7bc486294e6697655c9d617bc2aa52578aebd and orderer type etcdraft
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.consensus.etcdraft] Start -> INFO 012[0m Starting Raft node channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.common.cluster] Configure -> INFO 013[0m Entering, channel: provence, nodes: []
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.common.cluster] Configure -> INFO 014[0m Exiting
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.consensus.etcdraft] start -> INFO 015[0m Starting raft node as part of a new channel channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.consensus.etcdraft] becomeFollower -> INFO 016[0m 1 became follower at term 0 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.consensus.etcdraft] newRaft -> INFO 017[0m newRaft 1 [peers: [], term: 0, commit: 0, applied: 0, lastindex: 0, lastterm: 0] channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.consensus.etcdraft] becomeFollower -> INFO 018[0m 1 became follower at term 1 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.common.server] Main -> INFO 019[0m Starting orderer:
 [36morderer_1   |[0m  Version: 2.2.1
 [36morderer_1   |[0m  Commit SHA: 344fda6
 [36morderer_1   |[0m  Go version: go1.14.4
 [36morderer_1   |[0m  OS/Arch: linux/amd64
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.454 UTC [orderer.common.server] Main -> INFO 01a[0m Beginning to serve requests
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.454 UTC [orderer.consensus.etcdraft] run -> INFO 01b[0m This node is picked to start campaign channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:12.467 UTC [orderer.consensus.etcdraft] apply -> INFO 01c[0m Applied config change to add node 1, current nodes in channel: [1] channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] Step -> INFO 01d[0m 1 is starting a new election at term 1 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] becomePreCandidate -> INFO 01e[0m 1 became pre-candidate at term 1 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] poll -> INFO 01f[0m 1 received MsgPreVoteResp from 1 at term 1 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] becomeCandidate -> INFO 020[0m 1 became candidate at term 2 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] poll -> INFO 021[0m 1 received MsgVoteResp from 1 at term 2 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] becomeLeader -> INFO 022[0m 1 became leader at term 2 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.456 UTC [orderer.consensus.etcdraft] run -> INFO 023[0m raft.node: 1 elected leader 1 at term 2 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.460 UTC [orderer.consensus.etcdraft] run -> INFO 024[0m Leader 1 is present, quit campaign channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.460 UTC [orderer.consensus.etcdraft] run -> INFO 025[0m Raft leader changed: 0 -> 1 channel=provence node=1
-[36morderer_1   |[0m [34m2021-04-09 09:00:13.460 UTC [orderer.consensus.etcdraft] run -> INFO 026[0m Start accepting requests as Raft leader at block [0] channel=provence node=1
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.156 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
-[33mYJHpeer1_1  |[0m  Version: 2.2.1
-[33mYJHpeer1_1  |[0m  Commit SHA: 344fda6
-[33mYJHpeer1_1  |[0m  Go version: go1.14.4
-[33mYJHpeer1_1  |[0m  OS/Arch: linux/amd64
-[33mYJHpeer1_1  |[0m  Chaincode:
-[33mYJHpeer1_1  |[0m   Base Docker Label: org.hyperledger.fabric
-[33mYJHpeer1_1  |[0m   Docker Namespace: hyperledger
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.156 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 192.168.80.3:7051
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.156 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer0.yjh.provence.com:7051
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.173 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.173 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.173 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.225 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.225 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.233 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.333 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.351 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.440 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.545 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.559 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.580 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer0.yjh.provence.com:7051
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.581 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer0.yjh.provnece.com:7051, InternalEndpoint: peer0.yjh.provence.com:7051, PKI-ID: f0fc2cc85814604a19e7b75d79c77b8d8c39ebd57d4bebf342aa7e0a23a71852, Metadata: 
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.582 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.582 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer0.yjh.provence.com
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.582 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer0.yjh.provence.com:7052
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.594 UTC [sccapi] DeploySysCC -> INFO 014[0m deploying system chaincode 'lscc'
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.595 UTC [gossip.gossip] start -> INFO 015[0m Gossip instance peer0.yjh.provence.com:7051 started
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer0.yjh.provence.com], network ID=[provence1], address=[peer0.yjh.provence.com:7051]
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer0.yjh.provence.com], network ID=[provence1], address=[peer0.yjh.provence.com:7051]
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:14.599 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.770 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.746 UTC [orderer.common.server] Main -> INFO 01a[0m Beginning to serve requests
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.747 UTC [orderer.consensus.etcdraft] run -> INFO 01b[0m This node is picked to start campaign channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:56.756 UTC [orderer.consensus.etcdraft] apply -> INFO 01c[0m Applied config change to add node 1, current nodes in channel: [1] channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] Step -> INFO 01d[0m 1 is starting a new election at term 1 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] becomePreCandidate -> INFO 01e[0m 1 became pre-candidate at term 1 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] poll -> INFO 01f[0m 1 received MsgPreVoteResp from 1 at term 1 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] becomeCandidate -> INFO 020[0m 1 became candidate at term 2 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] poll -> INFO 021[0m 1 received MsgVoteResp from 1 at term 2 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] becomeLeader -> INFO 022[0m 1 became leader at term 2 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.748 UTC [orderer.consensus.etcdraft] run -> INFO 023[0m raft.node: 1 elected leader 1 at term 2 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.751 UTC [orderer.consensus.etcdraft] run -> INFO 024[0m Leader 1 is present, quit campaign channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.751 UTC [orderer.consensus.etcdraft] run -> INFO 025[0m Raft leader changed: 0 -> 1 channel=provence node=1
+[36morderer_1   |[0m [34m2021-04-13 13:27:57.751 UTC [orderer.consensus.etcdraft] run -> INFO 026[0m Start accepting requests as Raft leader at block [0] channel=provence node=1
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.247 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
+[33mYJHpeer2_1  |[0m  Version: 2.2.1
+[33mYJHpeer2_1  |[0m  Commit SHA: 344fda6
+[33mYJHpeer2_1  |[0m  Go version: go1.14.4
+[33mYJHpeer2_1  |[0m  OS/Arch: linux/amd64
+[33mYJHpeer2_1  |[0m  Chaincode:
+[33mYJHpeer2_1  |[0m   Base Docker Label: org.hyperledger.fabric
+[33mYJHpeer2_1  |[0m   Docker Namespace: hyperledger
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.247 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 172.26.0.3:7051
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.247 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer1.yjh.provence.com:7051
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.270 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.270 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.270 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.321 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.321 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.325 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.463 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.472 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.543 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.715 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.736 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.756 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer1.yjh.provence.com:7051
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.758 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer1.yjh.provence.com:7151, InternalEndpoint: peer1.yjh.provence.com:7051, PKI-ID: 4635b6f34fabaa62e252d62dd98fdd9e1190d6161415c10555ab806b2a460245, Metadata: 
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.758 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.758 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer1.yjh.provence.com
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.759 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer1.yjh.provence.com:7052
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.779 UTC [gossip.gossip] start -> INFO 014[0m Gossip instance peer1.yjh.provence.com:7051 started
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.801 UTC [sccapi] DeploySysCC -> INFO 015[0m deploying system chaincode 'lscc'
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer1.yjh.provence.com], network ID=[provence1], address=[peer1.yjh.provence.com:7051]
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.802 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer1.yjh.provence.com], network ID=[provence1], address=[peer1.yjh.provence.com:7051]
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.803 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
+[33mYJHpeer2_1  |[0m [34m2021-04-13 13:27:58.803 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.914 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
 [32mHYpeer2_1   |[0m  Version: 2.2.1
 [32mHYpeer2_1   |[0m  Commit SHA: 344fda6
 [32mHYpeer2_1   |[0m  Go version: go1.14.4
@@ -188,26 +189,79 @@ Creating provence_YJHpeer1_1 ...
 [32mHYpeer2_1   |[0m  Chaincode:
 [32mHYpeer2_1   |[0m   Base Docker Label: org.hyperledger.fabric
 [32mHYpeer2_1   |[0m   Docker Namespace: hyperledger
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.773 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 192.168.80.4:7051
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.773 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer1.hy.provence.com:7051
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.813 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.818 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.818 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.883 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.884 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:14.913 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:14.998 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
-[35mYJHpeer2_1  |[0m  Version: 2.2.1
-[35mYJHpeer2_1  |[0m  Commit SHA: 344fda6
-[35mYJHpeer2_1  |[0m  Go version: go1.14.4
-[35mYJHpeer2_1  |[0m  OS/Arch: linux/amd64
-[35mYJHpeer2_1  |[0m  Chaincode:
-[35mYJHpeer2_1  |[0m   Base Docker Label: org.hyperledger.fabric
-[35mYJHpeer2_1  |[0m   Docker Namespace: hyperledger
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:14.999 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 192.168.80.5:7051
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.002 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer1.yjh.provence.com:7051
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.020 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.024 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.914 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 172.26.0.4:7051
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.915 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer1.hy.provence.com:7051
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.935 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.935 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.935 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.991 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:58.992 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.006 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.214 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.231 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.321 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.427 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.437 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.465 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer1.hy.provence.com:7051
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.468 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer1.hy.provence.com:7051, InternalEndpoint: peer1.hy.provence.com:7051, PKI-ID: d9713d0f51b3fb81fd5b540dcd31200e946c1ec56012853bb844930b4c91cc7c, Metadata: 
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.471 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.471 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer1.hy.provence.com
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.471 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer1.hy.provence.com:7052
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.481 UTC [gossip.gossip] start -> INFO 014[0m Gossip instance peer1.hy.provence.com:7051 started
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [sccapi] DeploySysCC -> INFO 015[0m deploying system chaincode 'lscc'
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer1.hy.provence.com], network ID=[provence1], address=[peer1.hy.provence.com:7051]
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.488 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer1.hy.provence.com], network ID=[provence1], address=[peer1.hy.provence.com:7051]
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.489 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
+[32mHYpeer2_1   |[0m [34m2021-04-13 13:27:59.489 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.228 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
+[35mYJHpeer1_1  |[0m  Version: 2.2.1
+[35mYJHpeer1_1  |[0m  Commit SHA: 344fda6
+[35mYJHpeer1_1  |[0m  Go version: go1.14.4
+[35mYJHpeer1_1  |[0m  OS/Arch: linux/amd64
+[35mYJHpeer1_1  |[0m  Chaincode:
+[35mYJHpeer1_1  |[0m   Base Docker Label: org.hyperledger.fabric
+[35mYJHpeer1_1  |[0m   Docker Namespace: hyperledger
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.228 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 172.26.0.6:7051
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.229 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer0.yjh.provence.com:7051
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.263 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.263 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.263 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.324 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.324 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.337 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.439 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.457 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.552 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.717 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.748 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.762 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer0.yjh.provence.com:7051
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.763 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer0.yjh.provnece.com:7051, InternalEndpoint: peer0.yjh.provence.com:7051, PKI-ID: f07ec39cdc918fafaf73ee647de9b6f72759e08124decfba2f7c2f0efac790e6, Metadata: 
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.764 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.764 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer0.yjh.provence.com
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.764 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer0.yjh.provence.com:7052
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.774 UTC [gossip.gossip] start -> INFO 014[0m Gossip instance peer0.yjh.provence.com:7051 started
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [sccapi] DeploySysCC -> INFO 015[0m deploying system chaincode 'lscc'
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.780 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.781 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer0.yjh.provence.com], network ID=[provence1], address=[peer0.yjh.provence.com:7051]
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.781 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer0.yjh.provence.com], network ID=[provence1], address=[peer0.yjh.provence.com:7051]
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.781 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.781 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.815 UTC [comm.grpc.server] 1 -> INFO 020[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-13T13:28:01.815Z grpc.peer_address=172.26.0.3:38712 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=83.068µs
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.825 UTC [gossip.comm] GossipStream -> INFO 021[0m Peer 4635b6f34fabaa62e252d62dd98fdd9e1190d6161415c10555ab806b2a460245 (172.26.0.3:38712) probed us
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.832 UTC [comm.grpc.server] 1 -> INFO 022[0m streaming call completed grpc.service=gossip.Gossip grpc.method=GossipStream grpc.request_deadline=2021-04-13T13:28:09.823Z grpc.peer_address=172.26.0.3:38712 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=8.927684ms
+[35mYJHpeer1_1  |[0m [34m2021-04-13 13:27:59.853 UTC [comm.grpc.server] 1 -> INFO 023[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-13T13:28:01.852Z grpc.peer_address=172.26.0.3:38718 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=77.006µs
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.275 UTC [nodeCmd] serve -> INFO 001[0m Starting peer:
 [31mHYpeer1_1   |[0m  Version: 2.2.1
 [31mHYpeer1_1   |[0m  Commit SHA: 344fda6
 [31mHYpeer1_1   |[0m  Go version: go1.14.4
@@ -215,90 +269,40 @@ Creating provence_YJHpeer1_1 ...
 [31mHYpeer1_1   |[0m  Chaincode:
 [31mHYpeer1_1   |[0m   Base Docker Label: org.hyperledger.fabric
 [31mHYpeer1_1   |[0m   Docker Namespace: hyperledger
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.024 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 192.168.80.6:7051
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.025 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer0.hy.provence.com:7051
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.032 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.037 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.037 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.037 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.047 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.047 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.047 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.094 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.094 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.098 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.111 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.114 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.114 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-07 08:20:00 +0000 UTC
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.118 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.199 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.203 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.202 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.202 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.207 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.211 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.225 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer1.hy.provence.com:7051
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.227 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer1.hy.provence.com:7051, InternalEndpoint: peer1.hy.provence.com:7051, PKI-ID: cb6a647b5ef13b79877e23a6a2518e4db511b62f4015ef7ccda4f03c6761c232, Metadata: 
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.228 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.228 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer1.hy.provence.com
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.228 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer1.hy.provence.com:7052
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.233 UTC [gossip.gossip] start -> INFO 014[0m Gossip instance peer1.hy.provence.com:7051 started
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.238 UTC [sccapi] DeploySysCC -> INFO 015[0m deploying system chaincode 'lscc'
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer1.hy.provence.com], network ID=[provence1], address=[peer1.hy.provence.com:7051]
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer1.hy.provence.com], network ID=[provence1], address=[peer1.hy.provence.com:7051]
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
-[32mHYpeer2_1   |[0m [34m2021-04-09 09:00:15.240 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.255 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.271 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.320 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.333 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.343 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.347 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer1.yjh.provence.com:7051
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.349 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer1.yjh.provence.com:7151, InternalEndpoint: peer1.yjh.provence.com:7051, PKI-ID: 787702701e76ccbba2ebb5c0c57afc7b4097e9b5ecb5a88cbfdf9ddcc892cb5c, Metadata: 
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.349 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.350 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer1.yjh.provence.com
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.351 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer1.yjh.provence.com:7052
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.358 UTC [sccapi] DeploySysCC -> INFO 014[0m deploying system chaincode 'lscc'
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [gossip.gossip] start -> INFO 015[0m Gossip instance peer1.yjh.provence.com:7051 started
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer1.yjh.provence.com], network ID=[provence1], address=[peer1.yjh.provence.com:7051]
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.359 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer1.yjh.provence.com], network ID=[provence1], address=[peer1.yjh.provence.com:7051]
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.360 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
-[35mYJHpeer2_1  |[0m [34m2021-04-09 09:00:15.360 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.363 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:15.373 UTC [comm.grpc.server] 1 -> INFO 020[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-09T09:00:17.372Z grpc.peer_address=192.168.80.5:45964 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=82.654µs
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:15.378 UTC [gossip.comm] GossipStream -> INFO 021[0m Peer 787702701e76ccbba2ebb5c0c57afc7b4097e9b5ecb5a88cbfdf9ddcc892cb5c (192.168.80.5:45964) probed us
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:15.378 UTC [comm.grpc.server] 1 -> INFO 022[0m streaming call completed grpc.service=gossip.Gossip grpc.method=GossipStream grpc.request_deadline=2021-04-09T09:00:25.376Z grpc.peer_address=192.168.80.5:45964 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=1.683471ms
-[33mYJHpeer1_1  |[0m [34m2021-04-09 09:00:15.391 UTC [comm.grpc.server] 1 -> INFO 023[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-09T09:00:17.391Z grpc.peer_address=192.168.80.5:45966 grpc.peer_subject="CN=peer1.yjh.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=77.811µs
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.393 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer0.hy.provence.com:7051
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.394 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer0.hy.provence.com:7051, InternalEndpoint: peer0.hy.provence.com:7051, PKI-ID: f4d192dd91f50d22deff5d797ad9fc2ed8707177c3210a589cda5b491d2ee7de, Metadata: 
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.400 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.401 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer0.hy.provence.com
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.401 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer0.hy.provence.com:7052
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.408 UTC [sccapi] DeploySysCC -> INFO 014[0m deploying system chaincode 'lscc'
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.408 UTC [gossip.gossip] start -> INFO 015[0m Gossip instance peer0.hy.provence.com:7051 started
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer0.hy.provence.com], network ID=[provence1], address=[peer0.hy.provence.com:7051]
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer0.hy.provence.com], network ID=[provence1], address=[peer0.hy.provence.com:7051]
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:15.409 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:16.247 UTC [comm.grpc.server] 1 -> INFO 020[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-09T09:00:18.247Z grpc.peer_address=192.168.80.4:57776 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=94.198µs
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:16.250 UTC [gossip.comm] GossipStream -> INFO 021[0m Peer cb6a647b5ef13b79877e23a6a2518e4db511b62f4015ef7ccda4f03c6761c232 (192.168.80.4:57776) probed us
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:16.250 UTC [comm.grpc.server] 1 -> INFO 022[0m streaming call completed grpc.service=gossip.Gossip grpc.method=GossipStream grpc.request_deadline=2021-04-09T09:00:26.248Z grpc.peer_address=192.168.80.4:57776 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=2.274634ms
-[31mHYpeer1_1   |[0m [34m2021-04-09 09:00:16.271 UTC [comm.grpc.server] 1 -> INFO 023[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-09T09:00:18.271Z grpc.peer_address=192.168.80.4:57778 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=76.329µs
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.275 UTC [peer] getLocalAddress -> INFO 002[0m Auto-detected peer address: 172.26.0.5:7051
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.275 UTC [peer] getLocalAddress -> INFO 003[0m Returning peer0.hy.provence.com:7051
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.293 UTC [nodeCmd] initGrpcSemaphores -> INFO 004[0m concurrency limit for endorser service is 2500
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.293 UTC [nodeCmd] initGrpcSemaphores -> INFO 005[0m concurrency limit for deliver service is 2500
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.293 UTC [nodeCmd] serve -> INFO 006[0m Starting peer with TLS enabled
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.374 UTC [certmonitor] trackCertExpiration -> INFO 007[0m The enrollment certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.374 UTC [certmonitor] trackCertExpiration -> INFO 008[0m The server TLS certificate will expire on 2031-04-11 13:00:00 +0000 UTC
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.379 UTC [ledgermgmt] NewLedgerMgr -> INFO 009[0m Initializing LedgerMgr
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.493 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00a[0m DB is empty Setting db format as 2.0
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.504 UTC [blkstorage] NewProvider -> INFO 00b[0m Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.607 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00c[0m DB is empty Setting db format as 2.0
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.785 UTC [leveldbhelper] openDBAndCheckFormat -> INFO 00d[0m DB is empty Setting db format as 2.0
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.807 UTC [ledgermgmt] NewLedgerMgr -> INFO 00e[0m Initialized LedgerMgr
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.846 UTC [gossip.service] New -> INFO 00f[0m Initialize gossip with endpoint peer0.hy.provence.com:7051
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.873 UTC [gossip.gossip] New -> INFO 010[0m Creating gossip service with self membership of Endpoint: peer0.hy.provence.com:7051, InternalEndpoint: peer0.hy.provence.com:7051, PKI-ID: e77482c5373dfeaf6b06dd0c3b7832a6580f75890e16119cfd8858aa3076b073, Metadata: 
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.874 UTC [lifecycle] InitializeLocalChaincodes -> INFO 011[0m Initialized lifecycle cache with 0 already installed chaincodes
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.874 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 012[0m Entering computeChaincodeEndpoint with peerHostname: peer0.hy.provence.com
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.874 UTC [nodeCmd] computeChaincodeEndpoint -> INFO 013[0m Exit with ccEndpoint: peer0.hy.provence.com:7052
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.885 UTC [sccapi] DeploySysCC -> INFO 014[0m deploying system chaincode 'lscc'
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.885 UTC [gossip.gossip] start -> INFO 015[0m Gossip instance peer0.hy.provence.com:7051 started
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.885 UTC [sccapi] DeploySysCC -> INFO 016[0m deploying system chaincode 'cscc'
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.885 UTC [sccapi] DeploySysCC -> INFO 017[0m deploying system chaincode 'qscc'
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [sccapi] DeploySysCC -> INFO 018[0m deploying system chaincode '_lifecycle'
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [nodeCmd] serve -> INFO 019[0m Deployed system chaincodes
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [discovery] NewService -> INFO 01a[0m Created with config TLS: true, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [nodeCmd] registerDiscoveryService -> INFO 01b[0m Discovery service activated
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [nodeCmd] serve -> INFO 01c[0m Starting peer with ID=[peer0.hy.provence.com], network ID=[provence1], address=[peer0.hy.provence.com:7051]
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [nodeCmd] serve -> INFO 01d[0m Started peer with ID=[peer0.hy.provence.com], network ID=[provence1], address=[peer0.hy.provence.com:7051]
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [kvledger] LoadPreResetHeight -> INFO 01e[0m Loading prereset height from path [/var/hyperledger/production/ledgersData/chains]
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:27:59.886 UTC [blkstorage] preResetHtFiles -> INFO 01f[0m No active channels passed
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:28:00.494 UTC [comm.grpc.server] 1 -> INFO 020[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-13T13:28:02.494Z grpc.peer_address=172.26.0.4:37132 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=81.803µs
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:28:00.497 UTC [gossip.comm] GossipStream -> INFO 021[0m Peer d9713d0f51b3fb81fd5b540dcd31200e946c1ec56012853bb844930b4c91cc7c (172.26.0.4:37132) probed us
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:28:00.497 UTC [comm.grpc.server] 1 -> INFO 022[0m streaming call completed grpc.service=gossip.Gossip grpc.method=GossipStream grpc.request_deadline=2021-04-13T13:28:10.495Z grpc.peer_address=172.26.0.4:37132 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=2.320561ms
+[31mHYpeer1_1   |[0m [34m2021-04-13 13:28:00.505 UTC [comm.grpc.server] 1 -> INFO 023[0m unary call completed grpc.service=gossip.Gossip grpc.method=Ping grpc.request_deadline=2021-04-13T13:28:02.504Z grpc.peer_address=172.26.0.4:37134 grpc.peer_subject="CN=peer1.hy.provence.com,L=San Francisco,ST=California,C=US" grpc.code=OK grpc.call_duration=65.796µs
+[36morderer_1   |[0m [31m2021-04-13 13:28:36.744 UTC [core.comm] ServerHandshake -> ERRO 027[0m TLS handshake failed with error tls: first record does not look like a TLS handshake server=Orderer remoteaddress=172.26.0.7:54034
+[36morderer_1   |[0m [31m2021-04-13 13:28:37.745 UTC [core.comm] ServerHandshake -> ERRO 028[0m TLS handshake failed with error tls: first record does not look like a TLS handshake server=Orderer remoteaddress=172.26.0.7:54038
+[36morderer_1   |[0m [31m2021-04-13 13:28:39.189 UTC [core.comm] ServerHandshake -> ERRO 029[0m TLS handshake failed with error tls: first record does not look like a TLS handshake server=Orderer remoteaddress=172.26.0.7:54040

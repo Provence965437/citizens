@@ -1,3 +1,7 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # ---------------------------------------------------------------------------
 # "OrdererOrgs" - Definition of organizations managing orderer nodes
@@ -7,15 +11,16 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: Orderer
-    Domain: provence.com 
-    EnableNodeOUs: false
-
+    Domain: provence.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
     Specs:
       - Hostname: orderer
-
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
@@ -23,25 +28,13 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: YJH
+  - Name: Org1
     Domain: yjh.provence.com
-    EnableNodeOUs: false
-
-    # ---------------------------------------------------------------------------
-    # "CA"
-    # ---------------------------------------------------------------------------
-    # Uncomment this section to enable the explicit definition of the CA for this
-    # organization.  This entry is a Spec.  See "Specs" section below for details.
-    # ---------------------------------------------------------------------------
-    # CA:
-    #    Hostname: ca # implicitly ca.org1.example.com
-    #    Country: US
-    #    Province: California
-    #    Locality: San Francisco
-    #    OrganizationalUnit: Hyperledger Fabric
-    #    StreetAddress: address for org # default nil
-    #    PostalCode: postalCode for org # default nil
-
+  # EnableNodeOUs: true
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
@@ -57,26 +50,12 @@ PeerOrgs:
     #
     #                 which obtains its values from the Spec.Hostname and
     #                 Org.Domain, respectively.
-    #   - SANS:       (Optional) Specifies one or more Subject Alternative Names
-    #                 to be set in the resulting x509. Accepts template
-    #                 variables {{.Hostname}}, {{.Domain}}, {{.CommonName}}. IP
-    #                 addresses provided here will be properly recognized. Other
-    #                 values will be taken as DNS names.
-    #                 NOTE: Two implicit entries are created for you:
-    #                     - {{ .CommonName }}
-    #                     - {{ .Hostname }}
     # ---------------------------------------------------------------------------
     # Specs:
     #   - Hostname: foo # implicitly "foo.org1.example.com"
     #     CommonName: foo27.org5.example.com # overrides Hostname-based FQDN set above
-    #     SANS:
-    #       - "bar.{{.Domain}}"
-    #       - "altfoo.{{.Domain}}"
-    #       - "{{.Hostname}}.org6.net"
-    #       - 172.16.10.31
     #   - Hostname: bar
     #   - Hostname: baz
-
     # ---------------------------------------------------------------------------
     # "Template"
     # ---------------------------------------------------------------------------
@@ -91,11 +70,16 @@ PeerOrgs:
     # ---------------------------------------------------------------------------
     Template:
       Count: 2
+      Specs:
       # Start: 5
-      # Hostname: {{.Prefix}}{{.Index}} # default
-      # SANS:
-      #   - "{{.Hostname}}.alt.{{.Domain}}"
-
+          - Hostname: peer0 # default
+            SANS:
+              - 0.0.0.0
+              - 127.0.0.1
+          - Hostname: peer1 # default
+            SANS:
+              - 0.0.0.0
+              - 127.0.0.1
     # ---------------------------------------------------------------------------
     # "Users"
     # ---------------------------------------------------------------------------
@@ -103,14 +87,17 @@ PeerOrgs:
     # ---------------------------------------------------------------------------
     Users:
       Count: 2
-
   # ---------------------------------------------------------------------------
   # Org2: See "Org1" for full specification
   # ---------------------------------------------------------------------------
-  - Name: HY
+  - Name: Org2
     Domain: hy.provence.com
-    EnableNodeOUs: false
+  # EnableNodeOUs: true
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
     Template:
       Count: 2
     Users:
-      Count: 3
+      Count: 2

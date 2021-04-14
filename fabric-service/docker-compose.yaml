@@ -3,15 +3,47 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+
+
 version: '2'
 
 services:
+  cli: 
+    container_name: cli 
+    image: hyperledger/fabric-tools:2.2 
+    tty: true 
+    environment: 
+      - GOPATH=/opt/gopath 
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock 
+      - CORE_LOGGING_LEVEL=debug 
+      - CORE_PEER_ID=cli 
+      - CORE_PEER_ADDRESS=peer0.yjh.provence.com:7051 
+      - CORE_PEER_LOCALMSPID=YJHMSP 
+      - CORE_PEER_TLS_ENABLED=true 
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/server.crt 
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/server.key 
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/ca.crt 
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/users/Admin@yjh.provence.com/msp 
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer 
+    command: /bin/bash #-c './scripts/script.sh ${CHANNEL_NAME}; sleep $TIMEOUT' 
+    volumes: 
+        - /var/run/:/host/var/run/ 
+        - ../chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode/
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ 
+       # #- ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/ 
+        - ./artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/artifacts 
+    depends_on: 
+      - orderer 
+      - YJHpeer1
+      - YJHpeer2 
+      - HYpeer1 
+      - HYpeer2
 
   orderer:
     image: hyperledger/fabric-orderer:2.2
     #在docker中的环境变量
     environment:
-      - ORDERER_GENERAL_LOGLEVEL=info
+      - ORDERER_GENERAL_LOGLEVEL=Debug
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/orderer.genesis.block
@@ -45,7 +77,7 @@ services:
     image: hyperledger/fabric-peer:2.2
     environment:
       - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer0.yjh.provence.com
+      - CORE_PEER_ID=peer0.yjh.provence.com   
       - CORE_LOGGING_PEER=info
       # - CORE_LOGGING_GRPC=debug
       # - CORE_LOGGING_GOSSIP=debug
@@ -92,7 +124,7 @@ services:
     networks:
       default:
         aliases:
-          - peer0.yjh.provence.com
+          - peer0.yjh.provence.com    #这个就是给网络设置了一个域名吧相当于
     depends_on:
       - orderer
 

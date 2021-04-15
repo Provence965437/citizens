@@ -24,13 +24,14 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/server.key 
       - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/ca.crt 
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/users/Admin@yjh.provence.com/msp 
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/provence.com/orderers/orderer.provence.com/msp/tlscacerts/tlsca.provence.com-cert.pem
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer 
     command: /bin/bash #-c './scripts/script.sh ${CHANNEL_NAME}; sleep $TIMEOUT' 
     volumes: 
         - /var/run/:/host/var/run/ 
         - ../chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode/
         - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ 
-       # #- ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/ 
+        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/ 
         - ./artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/artifacts 
     depends_on: 
       - orderer 

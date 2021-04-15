@@ -66,7 +66,7 @@ Organizations:
                 Rule: "OR('YJHMSP.admin', 'YJHMSP.peer', 'YJHMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+                Rule: "OR('YJHMSP.member')"
             Admins:
                 Type: Signature
                 Rule: "OR('YJHMSP.admin')"
@@ -93,7 +93,7 @@ Organizations:
                 Rule: "OR('HYMSP.admin', 'HYMSP.peer', 'HYMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('HYMSP.admin', 'HYMSP.client')"
+                Rule: "OR('HYMSP.member')"
             Admins:
                 Type: Signature
                 Rule: "OR('HYMSP.admin')"

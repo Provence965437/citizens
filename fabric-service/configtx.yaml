@@ -63,7 +63,7 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('YJHMSP.admin', 'YJHMSP.peer', 'YJHMSP.client')"
+                Rule: "OR('YJHMSP.member')"
             Writers:
                 Type: Signature
                 Rule: "OR('YJHMSP.member')"
@@ -72,7 +72,7 @@ Organizations:
                 Rule: "OR('YJHMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('YJHMSP.peer')"
+                Rule: "OR('YJHMSP.member')"
 
     - &Org2
         # DefaultOrg defines the organization which is used in the sampleconfig
@@ -90,7 +90,7 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('HYMSP.admin', 'HYMSP.peer', 'HYMSP.client')"
+                Rule: "OR('HYMSP.member')"
             Writers:
                 Type: Signature
                 Rule: "OR('HYMSP.member')"
@@ -99,7 +99,7 @@ Organizations:
                 Rule: "OR('HYMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('HYMSP.peer')"
+                Rule: "OR('HYMSP.member')"
         AnchorPeers:
              - Host: peer0.hy.provence.com
                Port: 7051
@@ -215,11 +215,11 @@ Orderer: &OrdererDefaults
     # as TLS validation.  The preferred way to specify orderer addresses is now
     # to include the OrdererEndpoints item in your org definition
     Addresses:
-        - provence.com:7050
+        - orderer.provence.com:7050
 
     EtcdRaft:
         Consenters:
-        - Host: provence.com
+        - Host: orderer.provence.com
           Port: 7050
           ClientTLSCert: ./crypto-config/ordererOrganizations/provence.com/orderers/orderer.provence.com/tls/server.crt
           ServerTLSCert: ./crypto-config/ordererOrganizations/provence.com/orderers/orderer.provence.com/tls/server.crt

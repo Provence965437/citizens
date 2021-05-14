@@ -1,8 +1,8 @@
-#  fabric-go-sdk 学习
+#  dockercompos启动网络的Demo
 
 ## 1. 安装软件环境
 
-此项目在macPro环境下部署
+部署环境为CentOS7，环境没有影响要求，只要是满足docker的系统即可。
 
 1. 安装git
 2. 安装golang
@@ -10,6 +10,8 @@
 4. 安装docker-compose
 
 以上软件安装自行google吧，教程很多。
+docker-compose问题最多，是在不行就参考这篇博客
+[从零一步步搭建基于docker的fabric网络](https://www.notion.so/docker-fabric-9743820147fe48b6ad755431cde264cb)
 
 ## 2. 编译工具
 
@@ -17,9 +19,10 @@
 
   git clone git@github.com:hyperledger/fabric.git
 
-- 切换到1.1版本（本项目使用fabirc1.1作为演示）
+- 切换到2.2版本（本项目使用fabirc2.2作为演示）
 
-  git checkout -b release-1.1 origin/release-1.1
+  git checkout -b release-2.3 origin/release-2.2
+  git pull
 
 - 生成工具包
 
@@ -34,7 +37,7 @@
 - 把上面编译好的文件放到本项目 fabric-service/bin 目录下
 
 ```shell
-➜  fabric-service git:(master) ✗ tree -l bin
+[root@VM-0-5-centos fabric-service]# tree -l bin
 bin
 ├── configtxgen
 └── cryptogen
@@ -44,496 +47,181 @@ bin
 
 - 约定
 
-  本项目暂定1个组织FBI，组织有2个节点，2个用户
+  本项目拟2个组织FBI，组织有2个节点，2个普通user和一个Admin用户
 
-  根域名使用 citizens.com
+| 节点名称 | ip | 域名 |
+| :-----:| :----: | :----: |
+| orderer | 81.70.246.39:7050 | orderer.provence.com |
+| YJH_peer1 | 81.70.246.39:7051 | peer0.yjh.provence.com |
+| YJH_peer2 | 81.70.246.39:7151 | peer1.yjh.provence.com |
+| HY_peer1 | 81.70.246.39:7251 | peer0.hy.provence.com |
+| HY_peer2 | 81.70.246.39:7351 | peer1.hy.provence.com |
 
 ### crypto-config.yaml 文件
 
 ```shell
-使用下面命令生成 文件模版
+#使用下面命令生成 文件模版#
 ./bin/cryptogen showtemplate > crypto-config.yaml
 ```
+按需修改，cryptogen的详解**待更新**
 
-根据实际定义修改内容，最终结果为
-
-```yaml
-OrdererOrgs:
-  - Name: Orderer
-    Domain: citizens.com
-    Specs:
-      - Hostname: orderer
-PeerOrgs:
-  - Name: FBI
-    Domain: fbi.citizens.com
-    EnableNodeOUs: false
-    Template:
-      Count: 2
-    Users:
-      Count: 2
-```
-
-- 在fabric-service目录下生成证书目录
-
-```
-➜  fabric-service git:(master) ✗ ./bin/cryptogen generate --config=crypto-config.yaml
-fbi.citizens.com
-```
 
 ### configtx.yaml 文件
 
 - 从fabric配置文件例子中获取模版
 
 ```shell
-➜  fabric-service git:(master) ✗ 
+[root@VM-0-5-centos fabric-service]# 
 cp $GOPATH/src/github.com/hyperledger/fabric/examples/e2e_cli/configtx.yaml ./
 ```
+按需修改，详解**待更新**
 
-- 修改后的内容
-
-```yaml
----
-Profiles:
-
-    CitizensGenesis:
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *FBI
-    CitizensChannel:
-        Consortium: SampleConsortium
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *FBI
-            Capabilities:
-                <<: *ApplicationCapabilities
-Organizations:
-    - &OrdererOrg
-        Name: OrdererOrg
-        ID: OrdererMSP
-        MSPDir: crypto-config/ordererOrganizations/citizens.com/msp
-    - &FBI
-        Name: FBIMSP
-        ID: FBIMSP
-        MSPDir: crypto-config/peerOrganizations/fbi.citizens.com/msp
-        AnchorPeers:
-            - Host: peer0.fbi.citizens.com
-              Port: 7051
-Orderer: &OrdererDefaults
-    OrdererType: solo
-    Addresses:
-        - orderer.citizens.com:7050
-    BatchTimeout: 2s
-    BatchSize:
-        MaxMessageCount: 10
-        AbsoluteMaxBytes: 98 MB
-        PreferredMaxBytes: 512 KB
-    Organizations:
-Application: &ApplicationDefaults
-    Organizations:
-Capabilities:
-    Global: &ChannelCapabilities
-        V1_1: true
-    Orderer: &OrdererCapabilities
-        V1_1: true
-    Application: &ApplicationCapabilities
-        V1_1: true
-
-```
-
-- 生成order创世区块锚节点配置文件
+- 生成order创世区块锚节点配置文件，通道文件，密码文件
 
 ```shell
-mkdir artifacts
-//生成order创世区块
-./bin/configtxgen --profile CitizensGenesis -outputBlock ./artifacts/orderer.genesis.block
-// 生成channel初始块
-./bin/configtxgen --profile CitizensChannel -outputCreateChannelTx ./artifacts/citizens.tx -channelID citizens
-//创建锚节点更新文件
-./bin/configtxgen --profile CitizensChannel -outputAnchorPeersUpdate ./artifacts/FBImspanchors.tx -channelID citizens -asOrg FBIMSP
-```
+./bin/cryptogen generate --config=crypto-config.yaml
+./bin/configtxgen --profile ProvenceGenesis -outputBlock ./artifacts/orderer.genesis.block -channelID provence
+./bin/configtxgen --profile ProvenceChannel -outputCreateChannelTx ./artifacts/provence.tx -channelID provence1
+./bin/configtxgen --profile ProvenceChannel -outputAnchorPeersUpdate ./artifacts/YJHmspanchors.tx -channelID provence1 -asOrg YJHMSP
+./bin/configtxgen --profile ProvenceChannel -outputAnchorPeersUpdate ./artifacts/HYmspanchors.tx -channelID provence1 -asOrg HYMSP
 
-- 生成channel初始块
-
-  channel 名字为 citizens
-
-```shell
-命令：
-./bin/configtxgen --profile CitizensChain -outputCreateChannelTx ./artifacts/citizens.tx -channelID citizens
-  ---------------------------------执行结果----------------------------------------------
-➜  fabric-service git:(master) ✗ ./bin/configtxgen --profile CitizensChain -outputCreateChannelTx ./artifacts/citizens.tx -channelID citizens
-2018-08-11 16:06:07.685 CST [common/tools/configtxgen] main -> INFO 001 Loading configuration
-2018-08-11 16:06:07.691 CST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
-2018-08-11 16:06:07.712 CST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 003 Writing new channel tx
 ```
 
 - 以上命令执行完毕后查看生成的结果,如果以下文件都生成成功说明以上操作都没有问题
 
 ```shell
-fabric-service git:(master) ✗ tree -l artifacts
-artifacts
-├── appleorgmspanchors.tx
-├── citizens.tx
-├── fbiorgmspanchors.tx
-└── orderer.genesis.block
+[root@VM-0-5-centos fabric-service]# ls crypto-config
+ordererOrganizations  peerOrganizations
 ```
+```shell
+[root@VM-0-5-centos fabric-service]# ls artifacts/
+HYmspanchors.tx  orderer.genesis.block  provence.tx  YJHmspanchors.tx
+```
+crypto-config目录详解，**待补充**
 
 ### docker-compose.yaml 文件
 
-- 复制模版文件
-
-```shell
-基于go模版文件修改
-cp $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/dockerenv/docker-compose.yaml ./
-cp $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/dockerenv/.env ./
-```
-
-- 修改后的结果
-
-```yaml
-version: '2'
-services:
-  orderer:
-    image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_ORDERER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_ORDERER_FIXTURE_TAG}
-    environment:
-      - ORDERER_GENERAL_LOGLEVEL=info
-      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
-      - ORDERER_GENERAL_GENESISMETHOD=file
-      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/orderer.genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
-      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer
-      - ORDERER_GENERAL_TLS_ENABLED=true
-      - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/tls/orderer/server.key
-      - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/tls/orderer/server.crt
-      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/tls/orderer/ca.crt]
-      - ORDERER_GENERAL_TLS_CLIENTAUTHENABLED
-      - ORDERER_GENERAL_TLS_CLIENTROOTCAS
-    #comment out logging.driver in order to render the debug logs
-    # logging:
-    #   driver: none
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
-    command: orderer
-    ports:
-      - 7050:7050
-    volumes:
-      - ./artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/ordererOrganizations/citizens.com/orderers/orderer.citizens.com/msp:/etc/hyperledger/msp/orderer
-      - ./crypto-config/ordererOrganizations/citizens.com/orderers/orderer.citizens.com/tls:/etc/hyperledger/tls/orderer
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/tlsca
-    networks:
-      default:
-        aliases:
-          - orderer.citizens.com
-
-  FBIpeer1:
-    image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
-    environment:
-      - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer0.fbi.citizens.com
-      - CORE_LOGGING_PEER=info
-      # - CORE_LOGGING_GRPC=debug
-      # - CORE_LOGGING_GOSSIP=debug
-      # - CORE_CHAINCODE_STARTUPTIMEOUT=30s
-      - CORE_CHAINCODE_LOGGING_SHIM=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=debug
-      - CORE_CHAINCODE_BUILDER=${FABRIC_DOCKER_REGISTRY}${FABRIC_BUILDER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BUILDER_FIXTURE_TAG}
-      - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
-      - CORE_CHAINCODE_EXECUTETIMEOUT=120s
-      - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=FBIMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=127.0.0.1:7051
-      - CORE_PEER_ADDRESS=peer0.fbi.citizens.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.fbi.citizens.com:7051
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/tls/peer/server.key
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/tls/peer/server.crt
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/tls/peer/ca.crt
-      - CORE_PEER_TLS_CLIENTAUTHREQUIRED
-      - CORE_PEER_TLS_CLIENTROOTCAS_FILES
-      # # the following setting starts chaincode containers on the same
-      # # bridge network as the peers
-      # # https://docs.docker.com/compose/networking/
-      - CORE_PEER_NETWORKID=${CORE_PEER_NETWORKID}
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${CORE_PEER_NETWORKID}_default
-    #comment out logging.driver in order to render the debug logs
-    # logging:
-    #   driver: none
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    ports:
-      - "7051:7051"
-    expose:
-      - "7051"
-      - "7052"
-    volumes:
-      - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer0.fbi.citizens.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer0.fbi.citizens.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/orgs/fbi.citizens.com/tlsca
-    networks:
-      default:
-        aliases:
-          - peer0.fbi.citizens.com
-    depends_on:
-      - orderer
-
-  FBIpeer2:
-    image: ${FABRIC_DOCKER_REGISTRY}${FABRIC_PEER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_PEER_FIXTURE_TAG}
-    environment:
-      - CORE_VM_ENDPOINT
-      - CORE_PEER_ID=peer1.fbi.citizens.com
-      - CORE_LOGGING_PEER=info
-      # - CORE_LOGGING_GRPC=debug
-      # - CORE_LOGGING_GOSSIP=debug
-      # - CORE_CHAINCODE_STARTUPTIMEOUT=30s
-      - CORE_CHAINCODE_LOGGING_SHIM=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=debug
-      - CORE_CHAINCODE_BUILDER=${FABRIC_DOCKER_REGISTRY}${FABRIC_BUILDER_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BUILDER_FIXTURE_TAG}
-      - CORE_CHAINCODE_GOLANG_RUNTIME=${FABRIC_BASE_DOCKER_REGISTRY}${FABRIC_BASEOS_FIXTURE_IMAGE}:${FABRIC_ARCH}${FABRIC_ARCH_SEP}${FABRIC_BASEOS_FIXTURE_TAG}
-      - CORE_CHAINCODE_EXECUTETIMEOUT=120s
-      - CORE_VM_DOCKER_ATTACHSTDOUT=false
-      - CORE_PEER_LOCALMSPID=FBIMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7151
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7152
-      - CORE_PEER_ADDRESS=peer1.fbi.citizens.com:7151
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.fbi.citizens.com:7151
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fbi.citizens.com:7051
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/tls/peer/server.key
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/tls/peer/server.crt
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/tls/peer/ca.crt
-      - CORE_PEER_TLS_CLIENTAUTHREQUIRED
-      - CORE_PEER_TLS_CLIENTROOTCAS_FILES
-      # # the following setting starts chaincode containers on the same
-      # # bridge network as the peers
-      # # https://docs.docker.com/compose/networking/
-      - CORE_PEER_NETWORKID=${CORE_PEER_NETWORKID}
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${CORE_PEER_NETWORKID}_default
-    #comment out logging.driver in order to render the debug logs
-    # logging:
-    #   driver: none
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    ports:
-      - "7151:7151"
-    expose:
-      - "7151"
-      - "7152"
-    volumes:
-      - /var/run/:/var/run/
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer1.fbi.citizens.com/msp:/etc/hyperledger/msp/peer
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/peers/peer1.fbi.citizens.com/tls:/etc/hyperledger/tls/peer
-      - ./crypto-config/peerOrganizations/fbi.citizens.com/tlsca:/etc/hyperledger/orgs/fbi.citizens.com/tlsca
-    networks:
-      default:
-        aliases:
-          - peer1.fbi.citizens.com
-    depends_on:
-      - orderer
-
-networks:
-    default:
-
-```
+- 修改docker-compose编排文件
+按需修改，编排文件的详细注释已写出
 
 - 修改hosts 把以下内容加入/etc/hosts文件
 
 ```shell
-127.0.0.1 peer0.fbi.citizens.com
-127.0.0.1 peer1.fbi.citizens.com
-127.0.0.1 apple.citizens.com
-127.0.0.1 fbi.citizens.com
-127.0.0.1 orderer.citizens.com
-127.0.0.1 citizens.com
+127.0.0.1 peer0.yjh.provence.com
+127.0.0.1 peer1.yjh.provence.com
+127.0.0.1 peer0.hy.provence.com
+127.0.0.1 peer1.hy.provence.com
+127.0.0.1 yjh.provence.com
+127.0.0.1 hy.provence.com
+127.0.0.1 orderer.provence.com
+127.0.0.1 provence.com
 ```
 
-### 编写config.yaml 文件
 
-进入web-service目录
+以上就是所有配置的基本流程
 
-cp $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/config/config_e2e.yaml ./config.yaml
-
-修改后的结果
-
-```yaml
-version: 1.0.0
-client:
-  organization: FBI
-
-  logging:
-    level: info
-  cryptoconfig:
-    path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config
-  credentialStore:
-    path: "/tmp/state-store"
-    cryptoStore:
-      path: /tmp/msp
-  BCCSP:
-    security:
-     enabled: true
-     default:
-      provider: "SW"
-     hashAlgorithm: "SHA2"
-     softVerify: true
-     level: 256
-
-  tlsCerts:
-    # [Optional]. Use system certificate pool when connecting to peers, orderers (for negotiating TLS) Default: false
-    systemCertPool: false
-
-    # [Optional]. Client key and cert for TLS handshake with peers and orderers
-    client:
-      key:
-        path: 
-      cert:
-        path: 
-
-channels:
-  citizens:
-    peers:
-      peer0.fbi.citizens.com:
-        endorsingPeer: true
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: true
-organizations:
-  FBI:
-    mspid: FBIMSP
-
-    # This org's MSP store (absolute path or relative to client.cryptoconfig)
-    cryptoPath:  peerOrganizations/fbi.citizens.com/users/{username}@fbi.citizens.com/msp
-
-    peers:
-      - peer0.fbi.citizens.com
-      - peer1.fbi.citizens.com
-
-
-    certificateAuthorities:
-      - ca.fbi.citizens.com
-
-
-#
-orderers:
-  orderer.citizens.com:
-    url: localhost:7050
-
-    # these are standard properties defined by the gRPC library
-    # they will be passed in as-is to gRPC client constructor
-    grpcOptions:
-      ssl-target-name-override: orderer.citizens.com
-      # These parameters should be set in coordination with the keepalive policy on the server,
-      # as incompatible settings can result in closing of connection.
-      # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
-      keep-alive-time: 0s
-      keep-alive-timeout: 20s
-      keep-alive-permit: false
-      fail-fast: false
-      # allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs
-      allow-insecure: false
-
-    tlsCACerts:
-      # Certificate location absolute path
-      path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/ordererOrganizations/citizens.com/tlsca/tlsca.citizens.com-cert.pem
-
-#
-# List of peers to send various requests to, including endorsement, query
-# and event listener registration.
-#
-peers:
-  peer0.fbi.citizens.com:
-    # this URL is used to send endorsement and query requests
-    url: peer0.fbi.citizens.com:7051
-
-    grpcOptions:
-      ssl-target-name-override: peer0.fbi.citizens.com
-      # These parameters should be set in coordination with the keepalive policy on the server,
-      # as incompatible settings can result in closing of connection.
-      # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
-      keep-alive-time: 0s
-      keep-alive-timeout: 20s
-      keep-alive-permit: false
-      fail-fast: false
-      # allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs
-      allow-insecure: false
-
-    tlsCACerts:
-      # Certificate location absolute path
-      path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/peerOrganizations/fbi.citizens.com/tlsca/tlsca.fbi.citizens.com-cert.pem
-
-  peer1.fbi.citizens.com:
-    # this URL is used to send endorsement and query requests
-    url: peer1.fbi.citizens.com:7151
-
-    grpcOptions:
-      ssl-target-name-override: peer1.fbi.citizens.com
-      # These parameters should be set in coordination with the keepalive policy on the server,
-      # as incompatible settings can result in closing of connection.
-      # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
-      keep-alive-time: 0s
-      keep-alive-timeout: 20s
-      keep-alive-permit: false
-      fail-fast: false
-      # allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs
-      allow-insecure: false
-
-    tlsCACerts:
-      # Certificate location absolute path
-      path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/peerOrganizations/fbi.citizens.com/tlsca/tlsca.fbi.citizens.com-cert.pem
-
-
-certificateAuthorities:
-  ca.fbi.citizens.com:
-    url: https://ca.fbi.citizens.com:7054
-    tlsCACerts:
-      # Comma-Separated list of paths
-      path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/peerOrganizations/fbi.citizens.com/tlsca/tlsca.fbi.citizens.com-cert.pem
-      # Client key and cert for SSL handshake with Fabric CA
-      client:
-        key:
-          path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/peerOrganizations/fbi.citizens.com/users/User1@fbi.citizens.com/tls/client.key
-        cert:
-          path: ${GOPATH}/src/github.com/akkagao/citizens/fabric-service/crypto-config/peerOrganizations/fbi.citizens.com/users/User1@fbi.citizens.com/tls/client.crt
-
-    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
-    # needed to enroll and invoke new users.
-    registrar:
-      enrollId: admin
-      enrollSecret: adminpw
-    # [Optional] The optional name of the CA.
-    caName: ca.fbi.citizens.com
-  
-```
-
-**以上就是所有配置的基本流程,也可以参考fabric-service目录下的bulid.sh脚本内容**
-
-然后编写chainCode 和 调用链码的代码就可以测试了，具体参考chainCode和web-service目录中的go代码
 
 ## 启动体验
 
-在fabric-service目录下执行
+####文件生成
+```shell
+[root@VM-0-5-centos fabric-service]# ./generate.sh
+```
+####启动网络
 
-./start.sh  启动fabric服务，所有日志都会输出到 all.log 中
+```shell
+[root@VM-0-5-centos fabric-service]# ./start.sh
+```
+####查看容器是否启动成功
+```shell
+[root@VM-0-5-centos fabric-service]# docker ps
+68c643e12c82   hyperledger/fabric-tools:2.2                                                                                                                                                 "/bin/bash"              21 hours ago   Up 21 hours                                      cli
+911cba131930   hyperledger/fabric-peer:2.2                                                                                                                                                  "peer node start"        21 hours ago   Up 21 hours   7052/tcp, 0.0.0.0:7251->7051/tcp   provence_HYpeer1_1
+1240f9d874dc   hyperledger/fabric-peer:2.2                                                                                                                                                  "peer node start"        21 hours ago   Up 21 hours   0.0.0.0:7051->7051/tcp, 7052/tcp   provence_YJHpeer1_1
+46dd8518e9db   hyperledger/fabric-peer:2.2                                                                                                                                                  "peer node start"        21 hours ago   Up 21 hours   7052/tcp, 0.0.0.0:7151->7051/tcp   provence_YJHpeer2_1
+71cb33baf3df   hyperledger/fabric-peer:2.2                                                                                                                                                  "peer node start"        21 hours ago   Up 21 hours   7052/tcp, 0.0.0.0:7351->7051/tcp   provence_HYpeer2_1
+e78ddac7fbd0   hyperledger/fabric-orderer:2.2                                                                                                                                               "orderer"                21 hours ago   Up 21 hours   0.0.0.0:7050->7050/tcp             provence_orderer_1
 
-然后进入web-service 目录
+```
+####手动安装链码
+进入cli容器e
+```shell
+[root@VM-0-5-centos fabric-service]# docker exec -it tool的容器ID /bin/bash
+bash-5.0# 
+```
+####安装channel
+```shell
+bash-5.0# ./scripts/init.sh
+```
+####安装chaincode
+```shell
+bash-5.0# cd ./scripts/
+bash-5.0# ./install.sh
+```
+####批准，调用，查询
+2.X版本需要先批注后调用，未写成脚本，请修改一下语句使用，对于不同节点的批准，别忘了先把环境变量重新定义，需要更换的环境变量在上面两个脚本中都有，复制粘贴即可。
 
-使用  `go run main.go`命令启动gosdk项目 执行链码的安装、初始化、执行、查询等操作
+```shell
+#链码包宏定义，在打包时会给出，可以peer lifecycle chaincode queryinstalled 命令查询到，未修改链码的话直接复制即可
+export CC_PACKAGE_ID=ca_1:da208a37947af8cd244525f2d44f38ec825174cc43c8925ca64e4ea463b6d3cf
+
+#链码批注，默认策略为大多数组织都批注
+peer lifecycle chaincode approveformyorg -o orderer.provence.com:7050 --ordererTLSHostnameOverride orderer.provence.com --channelID provence1 --name ca --version 1.0 --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA
+
+#查询批准状态
+peer lifecycle chaincode checkcommitreadiness --channelID provence1 --name ca --version 1.0 --sequence 1 --tls true --cafile  $ORDERER_CA --output json
+
+#链码提交，只需要提交一次
+peer lifecycle chaincode commit -o provence.com:7050 --ordererTLSHostnameOverride orderer.provence.com --channelID provence1 --name ca --version 1.0 --sequence 1 --tls true --cafile $ORDERER_CA --peerAddresses peer1.hy.provence.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/hy.provence.com/peers/peer0.hy.provence.com/tls/ca.crt --peerAddresses peer0.yjh.provence.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/ca.crt
+
+#链码调用
+peer chaincode invoke -o provence.com:7050 --ordererTLSHostnameOverride orderer.provence.com --tls true --cafile $ORDERER_CA -C provence1 -n ca --peerAddresses peer0.hy.provence.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/hy.provence.com/peers/peer0.hy.provence.com/tls/ca.crt --peerAddresses peer0.yjh.provence.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/yjh.provence.com/peers/peer0.yjh.provence.com/tls/ca.crt -c '{"function":"upcainfo","Args":["1","2"]}'
 
 
 
-## 以下是配置调试过程中遇到的一些错误处理方法
+#链码策略，需要制定策略是请在批准和提交时添加该选项使用
+--signature-policy "AND('HYMSP.member','YJHMSP.member')"
+--signature-policy "OR('HYMSP.member','YJHMSP.member')"
+```
+
+####测试链码提供的接口
+```shell
+函数名：upcainfo
+
+参数1  ：caID     参数2:  data
+
+caID建议使用证书编号的hash值，  data是一个json串
+
+data{
+
+    "ID"："",
+
+    "type"： "",
+
+    "time": "",
+
+    "basecode": ""
+
+}
+
+函数名：queryinfoById
+
+参数1:  caID
+
+返回值  payload可解析为json数据
+bash-5.0# 
+```
+
+###其他
+客户端调用的例子
+fabric-go-sdk请参考
+[fabric-go-sdk学习](https://github.com/akkagao/citizens)
+fabric-java-sdk请参考
+已完成，待补充
+
+
+
+## 以下是配置调试过程中遇到的一些错误处理方法(直接从上个项目复制未做修改)
 
 - 清理docker 网络
 
